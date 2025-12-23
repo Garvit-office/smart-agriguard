@@ -1,4 +1,27 @@
 import React, { useState, useRef } from "react";
+// Razorpay payment handler
+const handleRazorpayPayment = (amount, customerInfo) => {
+  const options = {
+    key: "rzp_test_YourKeyHere", // Replace with your Razorpay key
+    amount: amount * 100, // Amount in paise
+    currency: "INR",
+    name: "Florista Store",
+    description: "Order Payment",
+    handler: function (response) {
+      alert("Payment successful! Payment ID: " + response.razorpay_payment_id);
+    },
+    prefill: {
+      name: customerInfo.name,
+      email: "", // You can add email if available
+      contact: customerInfo.phone,
+    },
+    theme: {
+      color: "#16a34a",
+    },
+  };
+  const rzp = new window.Razorpay(options);
+  rzp.open();
+};
 import {
   FaTimes,
   FaPlus,
@@ -395,12 +418,21 @@ const handleConfirm = () => {
                     </p>
                     <div className="flex justify-end space-x-4">
                       {!confirmed ? (
-                        <button
-                          onClick={handleConfirm}
-                          className="bg-green-600 text-white px-6 py-2 rounded-full hover:bg-green-700 transition-colors cursor-pointer"
-                        >
-                          Confirm
-                        </button>
+                        <>
+                          <button
+                            onClick={handleConfirm}
+                            className="bg-green-600 text-white px-6 py-2 rounded-full hover:bg-green-700 transition-colors cursor-pointer"
+                          >
+                            Confirm (COD)
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => handleRazorpayPayment(getTotalPrice(), customerInfo)}
+                            className="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition-colors cursor-pointer ml-2"
+                          >
+                            Pay Online (Razorpay)
+                          </button>
+                        </>
                       ) : (
                         <button
                           onClick={downloadPDF}
@@ -424,5 +456,13 @@ const handleConfirm = () => {
     )
   );
 };
+
+// Load Razorpay script when component mounts
+if (typeof window !== "undefined" && !window.Razorpay) {
+  const script = document.createElement("script");
+  script.src = "https://checkout.razorpay.com/v1/checkout.js";
+  script.async = true;
+  document.body.appendChild(script);
+}
 
 export default Cart;

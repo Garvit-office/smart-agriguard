@@ -1,6 +1,7 @@
-# React + Vite
+# Florista
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+
+Florista is a modern agriculture and gardening marketplace and management platform.
 
 Currently, two official plugins are available:
 

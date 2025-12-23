@@ -9,6 +9,10 @@ import leftLeaf from "../images/s1.jpg";
 import rightLeaf from "../images/s1.jpg";
 
 function Register() {
+  // Only allow roles that backend accepts
+  const validRoles = [
+    'admin', 'farmer', 'OrganicFarmer', 'cropFarmer', 'greenhouseFarmer', 'forester', 'gardener', 'soilTester', 'agriculturalResearcher'
+  ];
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -19,7 +23,7 @@ function Register() {
     country: "",
     password: "",
     confirmPassword: "",
-    role: "",
+    role: "farmer",
     phoneNumber: "",
     location: "",
   });
@@ -86,10 +90,6 @@ function Register() {
         userData
       );
 
-      const token = response.data.token;
-      localStorage.setItem("authToken", token);
-      localStorage.setItem("user", JSON.stringify(response.data.user));
-
       toast.success("Registration successful! You are now logged in.", {
         position: "top-center",
         autoClose: 3000,
@@ -111,7 +111,7 @@ function Register() {
         country: "",
         password: "",
         confirmPassword: "",
-        role: "",
+        role: "farmer",
         phoneNumber: "",
         location: "",
       });
@@ -121,10 +121,16 @@ function Register() {
       }, 1000);
     } catch (err) {
       console.error("Error during registration:", err.response?.data);
-      setError(
-        err.response?.data?.message ||
-          "Invalid input data, please try again."
-      );
+      if (err.response?.data?.message === "Email already in use") {
+        setError("This email is already registered. Please use another.");
+      } else if (err.response?.data?.message === "Username already taken") {
+        setError("This username is already taken. Please choose another.");
+      } else {
+        setError(
+          err.response?.data?.message ||
+            "Invalid input data, please try again."
+        );
+      }
     } finally {
       setLoading(false);
     }
@@ -353,61 +359,33 @@ function Register() {
             </div>
           </div>
 
-          {/* Phone & Role */}
-          <div className="flex justify-between gap-4">
-            <div className="w-full">
-              <label
-                className="block text-gray-700 text-sm font-bold mt-2 mb-2"
-                htmlFor="phoneNumber"
-              >
-                Phone Number
-              </label>
-              <input
-                className={`shadow-lg my-1 focus:outline-none focus:border-green-600 appearance-none border rounded w-full py-3 px-4 text-gray-700 ${
-                  validationErrors.phoneNumber ? "border-red-500" : ""
-                }`}
-                id="phoneNumber"
-                type="tel"
-                placeholder="Enter phone number (e.g. +919876543210)"
-                value={formData.phoneNumber}
-                onChange={handleChange}
-                required
-              />
-              {validationErrors.phoneNumber && (
-                <p className="text-red-500 text-xs italic mt-1">
-                  {validationErrors.phoneNumber}
-                </p>
-              )}
-            </div>
-            <div className="w-full">
-              <label
-                className="block text-gray-700 text-sm font-bold mt-2 mb-2"
-                htmlFor="role"
-              >
-                Role
-              </label>
-              <select
-                className="shadow-lg my-1 focus:outline-none focus:border-green-600 appearance-none border rounded w-full py-3 px-4 text-gray-700"
-                id="role"
-                value={formData.role}
-                onChange={handleChange}
-                required
-              >
-                <option value="" disabled>
-                  Select Role
-                </option>
-                <option value="farmer">Farmer</option>
-                <option value="OrganicFarmer">Organic Farmer</option>
-                <option value="cropFarmer">Crop Farmer</option>
-                <option value="greenhouseFarmer">Greenhouse Farmer</option>
-                <option value="forester">Forester</option>
-                <option value="gardener">Gardener</option>
-                <option value="soilTester">Soil Tester</option>
-                <option value="agriculturalResearcher">
-                  Agricultural Researcher
-                </option>
-              </select>
-            </div>
+          {/* Role */}
+          <div className="w-full">
+            <label
+              className="block text-gray-700 text-sm font-bold mt-2 mb-2"
+              htmlFor="role"
+            >
+              Role
+            </label>
+            <select
+              className={`shadow-lg my-1 focus:outline-none focus:border-green-600 appearance-none border rounded w-full py-3 px-4 text-gray-700 ${
+                validationErrors.role ? "border-red-500" : ""
+              }`}
+              id="role"
+              value={formData.role}
+              onChange={handleChange}
+              required
+            >
+              <option value="" disabled>Select Role</option>
+              {validRoles.map((role) => (
+                <option key={role} value={role}>{role}</option>
+              ))}
+            </select>
+            {validationErrors.role && (
+              <p className="text-red-500 text-xs italic mt-1">
+                {validationErrors.role}
+              </p>
+            )}
           </div>
 
           {/* DOB, Gender, Country */}

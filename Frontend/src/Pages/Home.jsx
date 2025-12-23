@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FaLeaf, FaSearch, FaMobileAlt,FaCheckCircle, FaChevronDown,FaClock } from 'react-icons/fa';
 import { RiPlantLine } from 'react-icons/ri';
 import { useNavigate } from 'react-router-dom';
-import Navbar from '../components/Navbar';
+
 import WhatWeOffer from '../components/WhatWeOffer';
 import { FaRobot, FaChartLine, FaGraduationCap, FaPiggyBank } from "react-icons/fa6";
 const Home = () => {
@@ -151,7 +151,6 @@ const Home = () => {
 
   return (
     <div className="min-h-screen bg-white text-green-800">
-      <Navbar />
 {/* Hero Section */}
 <section className="relative h-screen flex items-center justify-center overflow-hidden">
   {/* Background Image */}
@@ -167,14 +166,14 @@ const Home = () => {
   <div className="absolute inset-0 bg-black bg-opacity-50 z-10"></div>
   
   {/* Content */}
-  <div className="container mx-auto px-4 text-center relative z-20">
+  <div className="max-w-4xl mx-auto px-4 text-center relative z-20">
     <motion.h1
       initial={{ opacity: 0, y: -50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
       className="text-5xl md:text-7xl font-bold mb-6 text-white leading-tight"
     >
-      Protect Plants with AgriGuard
+      Welcome to Florista
     </motion.h1>
     <motion.p
       initial={{ opacity: 0, y: 50 }}
@@ -182,7 +181,7 @@ const Home = () => {
       transition={{ duration: 0.8, delay: 0.2 }}
       className="text-xl md:text-2xl mb-8 text-white"
     >
-      AgriGuard: Advanced plant disease detection for smarter farming
+      The modern platform for smart, sustainable agriculture and gardening
     </motion.p>
     <motion.div
       initial={{ opacity: 0 }}
@@ -191,13 +190,13 @@ const Home = () => {
       className="flex justify-center space-x-4"
     >
       <button
-        className="bg-green-600 text-white px-8 py-3 rounded-full font-semibold text-lg hover:bg-green-700 transition duration-300"
+        className="bg-gradient-to-r from-green-500 to-lime-400 text-white px-10 py-3 rounded-full font-bold text-lg shadow-lg hover:from-green-600 hover:to-lime-500 transition duration-300 transform hover:scale-105"
         onClick={handleGetStarted}
       >
         Get Started
       </button>
       <button
-        className="border-2 border-white text-white px-8 py-3 rounded-full font-semibold text-lg hover:bg-white hover:text-green-800 transition duration-300"
+        className="border-2 border-white text-white px-8 py-3 rounded-full font-semibold text-lg hover:bg-white hover:text-green-800 transition duration-300 ml-2"
         onClick={() => navigate('/about')}
       >
         Learn More
@@ -209,16 +208,16 @@ const Home = () => {
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, delay: 0.6 }}
-      className="mt-12 flex justify-center space-x-8"
+      className="mt-12 flex flex-wrap justify-center gap-6"
     >
       {[
-        { icon: FaCheckCircle, text: "99% Accuracy" },
-        { icon: FaLeaf, text: "50+ Disease Types" },
-        { icon: FaClock, text: "24/7 Monitoring" },
+        { icon: FaCheckCircle, text: "99% Detection Accuracy" },
+        { icon: FaLeaf, text: "Eco-Friendly Solutions" },
+        { icon: FaClock, text: "24/7 Smart Monitoring" },
       ].map((feature, index) => (
-        <div key={index} className="flex items-center text-white">
-          <feature.icon className="text-green-400 mr-2 text-2xl" />
-          <span className="text-lg">{feature.text}</span>
+        <div key={index} className="flex items-center text-white bg-green-700 bg-opacity-60 rounded-full px-4 py-2 shadow-md mr-2">
+          <feature.icon className="text-lime-300 mr-2 text-2xl" />
+          <span className="text-lg font-medium">{feature.text}</span>
         </div>
       ))}
     </motion.div>
@@ -235,9 +234,9 @@ const Home = () => {
 
       {/* Recent Articles Section */}
       <section className="py-20 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-12">Recent Articles</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="max-w-6xl mx-auto px-4">
+          <h2 className="text-4xl font-bold text-center mb-12 text-green-800">Recent Articles</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 justify-items-center">
             {recentArticles.map((article, index) => (
               <motion.div
                 key={index}
@@ -260,18 +259,18 @@ const Home = () => {
 
             {/* Why Choose Us Section */}
             <section className="py-14 bg-gradient-to-br from-white to-green-50">
-        <div className="container mx-auto px-4">
+        <div className="max-w-4xl mx-auto px-4">
           <h2 className="text-4xl font-bold text-center mb-10 text-green-800">Why Choose Us</h2>
-          <div className="space-y-12 max-w-4xl mx-auto">
+          <div className="space-y-12">
             {benefits.map((benefit, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, x: index % 2 === 0 ? -40 : 40 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6 }}
-                className={`flex items-center ${index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'}`}
+                className={`flex flex-col md:flex-row items-center ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}
               >
-                <div className={`w-1/2 ${index % 2 === 0 ? 'pr-0' : 'pl-0'}`}>
+                <div className="w-full md:w-1/2 px-4">
                   <div className="flex items-center mb-3">
                     <div className="text-4xl text-green-600 mr-4">
                       {benefit.icon === 'FaRobot' && <FaRobot />}
@@ -292,7 +291,7 @@ const Home = () => {
                     />
                   </div>
                 </div>
-                <div className="w-1/2"></div>
+                <div className="hidden md:block w-1/2"></div>
               </motion.div>
             ))}
           </div>
@@ -327,9 +326,9 @@ const Home = () => {
       
       {/* How It Works Section */}
       <section className="py-20">
-        <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-12">How It Works</h2>
-          <div className="flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-12">
+        <div className="max-w-4xl mx-auto px-4">
+          <h2 className="text-4xl font-bold text-center mb-12 text-green-800">How It Works</h2>
+          <div className="flex flex-col md:flex-row items-center justify-center gap-10">
             {[
               { step: 1, text: 'Take a photo of your plant' },
               { step: 2, text: 'Upload it to AgriGuard' },
@@ -354,8 +353,8 @@ const Home = () => {
 
       {/* FAQ Section */}
       <section className="py-20 bg-white">
-        <div className="container mx-auto px-4 max-w-3xl">
-          <h2 className="text-4xl font-bold text-center mb-12">Frequently Asked Questions</h2>
+        <div className="max-w-3xl mx-auto px-4">
+          <h2 className="text-4xl font-bold text-center mb-12 text-green-800">Frequently Asked Questions</h2>
           <div className="bg-white shadow-lg rounded-lg overflow-hidden">
             {[
               {
@@ -396,15 +395,15 @@ const Home = () => {
      
       
       {/* Call to Action Section */}
-      <section className="py-6 bg-green-800 text-white">
-        <div className="container mx-auto px-4 text-center">
+      <section className="py-10 bg-gradient-to-r from-green-700 to-lime-500 text-white">
+        <div className="max-w-3xl mx-auto px-4 text-center">
           <motion.h2
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: scrollY > 1200 ? 1 : 0, y: scrollY > 1200 ? 0 : 50 }}
             transition={{ duration: 0.8 }}
             className="text-4xl font-bold mb-6"
           >
-            Ready to protect your plants?
+            Ready to grow with Florista?
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 50 }}
@@ -412,12 +411,12 @@ const Home = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="text-xl mb-8"
           >
-            Join FLorista today and keep your crops healthy!
+            Join Florista today and keep your crops healthy!
           </motion.p>
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="bg-white text-green-600 px-8 py-3 rounded-full text-lg font-semibold hover:bg-green-100 transition duration-300"
+            className="bg-white text-green-700 px-10 py-3 rounded-full text-lg font-bold shadow-lg hover:bg-green-100 transition duration-300 transform hover:scale-105"
             onClick={() => navigate('/register')}
           >
             Sign Up Now
@@ -426,23 +425,14 @@ const Home = () => {
       </section>
 
           {/* Footer */}
-          <footer className="bg-green-800 text-white py-8">
-        <div className="container mx-auto px-16 -ml-36 ">
-          <div className="flex flex-wrap justify-between">
-            <div className="w-full md:w-1/4 mt-12 mb-8 md:mb-0">
-              
-              
-              <div className="flex space-x-4">
-                {/* Add social media icons here */}
-                <a href="#" className="hover:text-green-300">
-                  <i className="fab fa-facebook-f"></i>
-                </a>
-                <a href="#" className="hover:text-green-300">
-                  <i className="fab fa-twitter"></i>
-                </a>
-                <a href="#" className="hover:text-green-300">
-                  <i className="fab fa-instagram"></i>
-                </a>
+          <footer className="bg-green-900 text-white py-10 mt-10 shadow-inner">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="flex flex-wrap justify-between gap-8">
+            <div className="w-full md:w-1/4 mb-8 md:mb-0">
+              <div className="flex space-x-4 mt-2">
+                <a href="#" className="hover:text-lime-300 text-2xl"><i className="fab fa-facebook-f"></i></a>
+                <a href="#" className="hover:text-lime-300 text-2xl"><i className="fab fa-twitter"></i></a>
+                <a href="#" className="hover:text-lime-300 text-2xl"><i className="fab fa-instagram"></i></a>
               </div>
             </div>
             <div className="w-full md:w-1/4 mb-8 md:mb-0">
@@ -478,8 +468,8 @@ const Home = () => {
               </form>
             </div>
           </div>
-          <div className="border-t border-green-700 -mb-2 ml-64 text-center">
-            <p className='text-green-300'>&copy; FLorista by garvit and gunraz.</p>
+          <div className="border-t border-green-700 mt-8 pt-4 text-center">
+            <p className='text-green-200'>&copy; Florista by Garvit and Gunraz.</p>
           </div>
         </div>
       </footer>

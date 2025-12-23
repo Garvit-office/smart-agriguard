@@ -1,6 +1,7 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { SnackbarProvider } from "notistack";
+import { CartProvider } from "./context/CartContext";
 import PrivateRoute from "./components/PrivateRoute";
 import AdminProducts from "./pages/AdminProducts";
 
@@ -42,7 +43,7 @@ import PlantDiseaseIdentifier from "./Pages/apitest";
 
 const App = () => {
   return (
-    <>
+    <CartProvider>
       <SnackbarProvider maxSnack={3}>
         <Navbar />
         <Routes>
@@ -93,7 +94,7 @@ const App = () => {
           <Route path="/plantapi" element={<PlantDiseaseIdentifier />} />
         </Routes>
       </SnackbarProvider>
-    </>
+    </CartProvider>
   );
 };
 
